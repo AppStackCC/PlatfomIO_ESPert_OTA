@@ -1,0 +1,21 @@
+language: python
+python:
+    - "2.7"
+
+sudo: false
+cache:
+directories:
+        - "~/.platformio"
+
+env:
+    - PLATFORMIO_CI_SRC=src/main.cpp
+
+install:
+    - pip install -U platformio
+    - platformio lib install 19 28 64 66 89 562
+
+    # ESPert Library
+    - wget https://github.com/JimmySoftware/ESPert/archive/master.zip -O /tmp/espert.zip
+    - unzip /tmp/espert.zip -d /tmp
+script:
+    - platformio ci --lib="/tmp/ESPert-master" --board=espresso_lite_v1
